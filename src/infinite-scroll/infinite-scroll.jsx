@@ -17,15 +17,13 @@ export default class InfiniteScroll extends Component {
     this.handleChangeIndex = this.handleChangeIndex.bind(this);
   }
   
-  activeHandler() {
-    document.addEventListener('keydown', this.handleNavigation);
+  componentWillMount() {
+    document.addEventListener('keydown', this.handleNavigation.bind(this));
+    this.animes = animesMock;
   }
   
-  
-
-  componentWillMount() {
-    this.activeHandler();
-    this.animes = animesMock;
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleNavigation.bind(this));
   }
   
   handleNavigation(e) {
