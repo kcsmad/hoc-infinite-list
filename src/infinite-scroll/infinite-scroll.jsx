@@ -3,24 +3,19 @@ import React, { Component } from 'react';
 import animesMock from './__mocks__/animes';
 
 export default class InfiniteScroll extends Component {
-  constructor(props) {
-    super(props);
+
+  componentWillMount() {
+
     this.animes = animesMock;
     console.log(this.animes);
   }
 
-  componentWillMount() {
-
-  }
-
   renderListItems() {
-    return this.animes.forEach(an => {
+    return this.animes.map(an => {
       return (
         <li>
-          <a href='http://kkj.com.br'>
-            <img alt="anime-cover" src={an.cover} />
-            {an.title}
-          </a>
+          <img alt="anime-cover" src={"images/" + an.cover} />
+          <p>{an.title}</p>
         </li>
       )
     })
