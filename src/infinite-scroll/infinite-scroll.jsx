@@ -10,7 +10,8 @@ export default class InfiniteScroll extends Component {
     super(props);
     
     this.state = {
-      activeIndex: 1,
+      activeIndex: 0,
+      slidesToShow: 3,
     };
   
     this.handleChangeActivePosition = this.handleChangeActivePosition.bind(this);
@@ -27,14 +28,14 @@ export default class InfiniteScroll extends Component {
   }
   
   handleNavigation(e) {
+    e.stopPropagation();
+    
     if (e.key === 'ArrowLeft') {
       this.handleChangeActivePosition('Left');
-      console.log(this.state.activeIndex);
     }
   
     if (e.key === 'ArrowRight') {
       this.handleChangeActivePosition('Right');
-      console.log(this.state.activeIndex);
     }
   }
   
@@ -42,8 +43,8 @@ export default class InfiniteScroll extends Component {
     const { activeIndex } = this.state;
     
     const indexChanged = direction === 'Left'
-      ? this.handleChangeIndex(activeIndex + 1, this.animes)
-      : this.handleChangeIndex(activeIndex - 1, this.animes);
+      ? this.handleChangeIndex(activeIndex - 1, this.animes)
+      : this.handleChangeIndex(activeIndex + 1, this.animes);
     
     this.setState({ activeIndex: indexChanged });
   }
@@ -56,11 +57,15 @@ export default class InfiniteScroll extends Component {
   }
 
   renderListItems() {
-    const { activeIndex } = this.state;
     
     return this.animes.map((an, i) => {
+      const classNames = [
+        this.state.activeIndex === i ? 'item-current' : '',
+        this.state.slidesToShow > i ? 'item-show' : 'item-closed'
+      ];
+      
       return (
-        <li key={i} className={activeIndex === i ? 'active' : ''}>
+        <li key={i} className={classNames.join(' ')}>
           <img alt="anime-cover" src={"images/" + an.cover} />
           <p>{an.title}</p>
         </li>
@@ -69,7 +74,6 @@ export default class InfiniteScroll extends Component {
   }
 
   render() {
-    
     return (
       <div className="infinite-scroll-wrapper">
         <ul className="infinite-scroll-list">
