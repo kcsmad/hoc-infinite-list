@@ -8,7 +8,7 @@
 
   li {
     margin: 1.5rem;
-
+    border-radius: 20px;
 
     p {
       color: white;
@@ -17,8 +17,27 @@
     }
 
     img {
+      border: 2px solid transparent;
+      border-radius: 20px;
       width: 200px;
       height: 300px;
+      -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+      -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+      box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    }
+
+
+    &.active {
+      p {
+        text-decoration: underline;
+      }
+
+      img {
+        border: 2px solid white;
+        -webkit-box-shadow: 30px 30px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 30px 30px 5px 0px rgba(0,0,0,0.75);
+        box-shadow: 30px 30px 5px 0px rgba(0,0,0,0.75);
+      }
     }
   }
 }

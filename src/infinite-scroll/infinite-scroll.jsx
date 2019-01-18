@@ -56,9 +56,11 @@ export default class InfiniteScroll extends Component {
   }
 
   renderListItems() {
-    return this.animes.map(an => {
+    const { activeIndex } = this.state;
+    
+    return this.animes.map((an, i) => {
       return (
-        <li>
+        <li key={i} className={activeIndex === i ? 'active' : ''}>
           <img alt="anime-cover" src={"images/" + an.cover} />
           <p>{an.title}</p>
         </li>
@@ -67,8 +69,6 @@ export default class InfiniteScroll extends Component {
   }
 
   render() {
-    const { activeIndex } = this.state;
-    
     
     return (
       <div className="infinite-scroll-wrapper">
