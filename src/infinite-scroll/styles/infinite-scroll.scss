@@ -2,13 +2,14 @@
   overflow: hidden;
   align-items: center;
   justify-content: center;
+  height: 500px;
+  padding: 1rem;
+  margin: 4rem auto;
 }
 
 .infinite-scroll-list {
   list-style: none;
   display: inline-flex;
-  margin: 8rem auto;
-  height: 800px;
   width: 100%;
 
   li {
