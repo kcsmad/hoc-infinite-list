@@ -20,7 +20,7 @@ export default class InfiniteScroll extends Component {
 
   componentWillMount() {
     document.addEventListener('keydown', this.handleNavigation.bind(this));
-    this.animes = animesMock;
+    this.setState({ animes: animesMock });
   }
 
   componentWillUnmount() {
@@ -40,11 +40,11 @@ export default class InfiniteScroll extends Component {
   }
 
   handleChangeActivePosition(direction) {
-    const { activeIndex } = this.state;
+    const { activeIndex, animes } = this.state;
 
     const indexChanged = direction === 'Left'
-      ? this.handleChangeIndex(activeIndex - 1, this.animes)
-      : this.handleChangeIndex(activeIndex + 1, this.animes);
+      ? this.handleChangeIndex(activeIndex - 1, animes)
+      : this.handleChangeIndex(activeIndex + 1, animes);
 
     this.setState({ activeIndex: indexChanged });
   }
@@ -70,17 +70,14 @@ export default class InfiniteScroll extends Component {
   }
 
   renderListItems() {
-    const { activeIndex, threshold } = this.state;
-    const indexesArray = this.handleCurrentDisplayedItems(this.animes, activeIndex, threshold);
-
-    const animesOrder = indexesArray.map(i => { return this.animes[i] });
-
+    const { activeIndex, threshold, animes } = this.state;
+    const indexesArray = this.handleCurrentDisplayedItems(animes, activeIndex, threshold);
+    const animesOrder = indexesArray.map(i => { return animes[i] });
 
     return animesOrder.map((an, i) => {
-      console.log('Active Index:' + this.state.activeIndex + ', Index: ' + i);
       const styles = [
         'item-show',
-        indexesArray[activeIndex] === i ? 'item-current' : ''
+        indexesArray.indexOf(activeIndex) === i ? 'item-current' : ''
       ];
 
       return (
