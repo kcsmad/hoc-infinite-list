@@ -70,14 +70,17 @@ export default class InfiniteScroll extends Component {
   }
 
   renderListItems() {
+    const { activeIndex, threshold } = this.state;
+    const indexesArray = this.handleCurrentDisplayedItems(this.animes, activeIndex, threshold);
 
-    const animes = this.handleCurrentDisplayedItems(this.animes, this.state.activeIndex, this.state.threshold);
-    console.log(animes);
+    const animesOrder = indexesArray.map(i => { return this.animes[i] });
 
-    return this.animes.map((an, i) => {
+
+    return animesOrder.map((an, i) => {
+      console.log('Active Index:' + this.state.activeIndex + ', Index: ' + i);
       const styles = [
-        animes.indexOf(i) > -1 ? 'item-show' : 'item-closed',
-        animes[0] === i ? 'item-current' : ''
+        'item-show',
+        indexesArray[activeIndex] === i ? 'item-current' : ''
       ];
 
       return (
